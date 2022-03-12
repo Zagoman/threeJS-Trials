@@ -1,4 +1,4 @@
-import * as THREE from "https://cdn.skypack.dev/three@0.136";
+import * as THREE from "https://unpkg.com/three@0.108.0/build/three.module.js";
 
 function main() {
   const canvas = document.querySelector("#c");
