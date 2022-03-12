@@ -9,6 +9,8 @@ function main() {
   const far = 5;
   const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
   camera.position.z = 2;
+  camera.position.x = 0;
+  camera.position.y = 0;
   const scene = new THREE.Scene();
 
   const boxWidth = 1;
@@ -28,6 +30,8 @@ function main() {
 
   renderer.render(scene, camera);
 
+  //   renderer.setPixelRatio(window.devicePixelRatio); // This line is for HD-DPI screens
+
   function makeInstance(geometry, color, x) {
     const material = new THREE.MeshPhongMaterial({ color });
 
@@ -45,8 +49,9 @@ function main() {
   ];
   function resizeRendererToDisplaySize(renderer) {
     const canvas = renderer.domElement;
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
+    const pixelRatio = window.devicePixelRatio;
+    const width = (canvas.clientWidth * pixelRatio) | 0;
+    const height = (canvas.clientHeight * pixelRatio) | 0;
     const needResize = canvas.width !== width || canvas.height !== height;
     if (needResize) {
       renderer.setSize(width, height, false);
