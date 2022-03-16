@@ -23,7 +23,6 @@ class BasicGallery {
       100
     );
     this._camera.position.set(10, 15, 10);
-    this._camera.lookAt();
 
     let light = new THREE.AmbientLight(0xffffff, 4.0);
     this._scene.add(light);
