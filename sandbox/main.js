@@ -20,14 +20,13 @@ class BasicGallery {
       75,
       this._sizes.width / this._sizes.height,
       0.1,
-      100
+      200
     );
-    this._camera.position.set(10, 15, 10);
+    this._camera.position.set(0, 5, 80);
+    // this._camera.rotation.set(0, 0, 0);
 
-    let light = new THREE.AmbientLight(0xffffff, 4.0);
-    this._scene.add(light);
     const plane = new THREE.Mesh(
-      new THREE.PlaneGeometry(100, 100, 10, 10),
+      new THREE.PlaneGeometry(30, 100, 10, 10),
       new THREE.MeshStandardMaterial({
         color: 0x202020,
       })
@@ -37,7 +36,46 @@ class BasicGallery {
     plane.rotation.x = -Math.PI / 2;
     this._scene.add(plane);
 
+    const ceiling = new THREE.Mesh(
+      new THREE.PlaneGeometry(30, 100, 10, 10),
+      new THREE.MeshStandardMaterial({
+        color: 0xffff00,
+        side: THREE.DoubleSide,
+      })
+    );
+    ceiling.castShadow = true;
+    ceiling.receiveShadow = false;
+    ceiling.rotation.x = -Math.PI / 2;
+    ceiling.position.set(0, 10, 0);
+    this._scene.add(ceiling);
+
+    let light = new THREE.AmbientLight(0xffffff, 0.5);
+    this._scene.add(light);
+
+    this._CreateWalls();
+
+    let rectLight = new THREE.RectAreaLight(0xffffff, 20, 2, 10);
+    rectLight.position.set(0, 3, 40);
+    rectLight.lookAt(0, 0, 0);
+    this._scene.add(rectLight);
+
     this._RAF();
+  }
+
+  _CreateWalls() {
+    const wall = new THREE.Mesh(
+      new THREE.PlaneGeometry(10, 30),
+      new THREE.MeshStandardMaterial({
+        color: 0xffff00,
+        side: THREE.DoubleSide,
+      })
+    );
+    wall.castShadow = false;
+    wall.receiveShadow = true;
+    wall.rotation.z = -Math.PI / 2;
+    wall.rotation.y = Math.PI;
+    wall.position.set(0, 5, -50);
+    this._scene.add(wall);
   }
 
   _RAF() {
